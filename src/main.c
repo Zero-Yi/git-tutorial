@@ -102,7 +102,7 @@ void timer_callback(union sigval arg) {
   int error;
 
   error = pthread_mutex_lock(&mutex);
-  printf("\ntimer_callback called.\n");
+  //printf("\ntimer_callback called.\n");
   if (error != 0)
     err_abort(error, "Callback locking");
 
@@ -148,7 +148,7 @@ void create_timer(int tick) {
       timer_settime(our_timer, 0, &timer_specs, 0); /** Set timer interval */
   if (error == -1)
     errno_abort("Setting timer");
-  printf("\ncreate_timer called.\n");
+  //printf("\ncreate_timer called.\n");
 }
 
 void statemachine_callback(void) {
@@ -201,7 +201,7 @@ int main(int argc, char **argv) {
   create_timer(arguments.tick);
 
   error = pthread_mutex_lock(&mutex);
-  if (!error)
+  if (error!=0)
     err_abort(error, "Lock mutex");
 
   while (count < count_to) {
